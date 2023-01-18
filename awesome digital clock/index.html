@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>digital clock</title>
+        <link rel="shortcut icon" href="clock-solid.svg" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            :root{
+                --circle-s:#04fc43;
+                --circle-m:#fee800;
+                --circle-h:#ff2972;
+            }
+            body.dark{
+                --circle-s:#4949e7;
+                --circle-m:#ff6100;
+                --circle-h:#02b7ff;
+            }
+        </style>
+
+        <link rel="stylesheet" href="style.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <div class="dark-light active">
+            
+            <i class="bx bx-moon moon fa-solid fa-moon-stars"></i>
+            
+            <i class="bx bx-sun sun fa-solid fa-sun"></i>
+        </div>
+        <div class="container">
+           <div class="clock">
+            <div class="circle" style="--clr:var(--circle-s);" id="sc"><i></i></div>
+            <div class="circle circle2" style="--clr:var(--circle-m);" id="mn"><i></i></div>
+            <div class="circle circle3" style="--clr:var(--circle-h);" id="hr"><i></i></div>
+
+            <span style="--i:1;"><b>1</b></span>
+            <span style="--i:2;"><b>2</b></span>
+            <span style="--i:3;"><b>3</b></span>
+            <span style="--i:4;"><b>4</b></span>
+            <span style="--i:5;"><b>5</b></span>
+            <span style="--i:6;"><b>6</b></span>
+            <span style="--i:7;"><b>7</b></span>
+            <span style="--i:8;"><b>8</b></span>
+            <span style="--i:9;"><b>9</b></span>
+            <span style="--i:10;"><b>10</b></span>
+            <span style="--i:11;"><b>11</b></span>
+            <span style="--i:12;"><b>12</b></span>
+           </div>
+
+ <div id="time">
+            <div id="hours" style="--clr:var(--circle-h);" >00</div>
+            <div id="minutes" style="--clr:var(--circle-m);">00</div>
+            <div id="seconds" style="--clr:var(--circle-s);">00</div>
+            <div id="ampm">AM</div>
+        </div>
+
+
+        </div>
+
+       
+        
+        <script>
+            let hr=document.querySelector('#hr');
+            let mn=document.querySelector('#mn');
+            let sc=document.querySelector('#sc');
+
+
+
+
+            setInterval(()=>{
+                 let day=new Date();
+            let hh=day.getHours()*30;
+            let mm=day.getMinutes()*6;
+            let ss=day.getSeconds()*6;
+
+            hr.style.transform=`rotateZ(${hh+(mm/12)}deg)`;
+            mn.style.transform=`rotateZ(${mm}deg)`;
+            sc.style.transform=`rotateZ(${ss}deg)`;
+
+
+            let hours=document.getElementById('hours');
+            let minutes=document.getElementById('minutes');
+            let seconds=document.getElementById('seconds');
+            let ampm=document.getElementById('ampm');
+
+            let h=new Date().getHours();
+            let m=new Date().getMinutes();
+            let s=new Date().getSeconds();
+
+            let am=h>=12?"PM":"AM";
+
+            if(h>12){
+                h=h-12;
+            }
+
+            h=(h<10)?"0"+h:h
+            m=(m<10)?"0"+m:m
+            s=(s<10)?"0"+s:s
+
+            hours.innerHTML=h;
+            minutes.innerHTML=m;
+            seconds.innerHTML=s;
+            ampm.innerHTML=am;
+
+            })
+
+            const body=document.querySelector("body"),
+            modeToggle=document.querySelector(".dark-light");
+
+            modeToggle.addEventListener("click",()=>{
+modeToggle.classList.toggle("active");
+body.classList.toggle("dark");
+if(!body.classList.contains("dark")){
+    localStorage.setItem("mode","light-mode");
+}else{
+    localStorage.setItem("mode","dark-mode");
+}
+
+
+            });
+
+
+           
+        </script>
+    </body>
+</html>
